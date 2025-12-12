@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5574765940842871599}
   m_Layer: 0
-  m_Name: Enemy Dummy
+  m_Name: Enemy Dummy Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
