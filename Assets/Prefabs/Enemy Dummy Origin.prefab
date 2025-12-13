@@ -1,0 +1,294 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3585973041749423028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1002364867295736852}
+  m_Layer: 0
+  m_Name: Enemy Dummy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1002364867295736852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585973041749423028}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3493986584424550496}
+  - {fileID: 6494200111807266182}
+  m_Father: {fileID: 2224648197259892856}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4700456358400968313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2224648197259892856}
+  - component: {fileID: 1440723625350142386}
+  m_Layer: 0
+  m_Name: Enemy Dummy Origin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2224648197259892856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4700456358400968313}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1002364867295736852}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1440723625350142386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4700456358400968313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dde077b7d6a77d4f8f4161f31bac594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChickenSnakes.EnemyGroup.EnemyPort
+  _enemyOnPort: {fileID: 3585973041749423028}
+  _onDeploy:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8730379436296730620}
+        m_TargetAssemblyTypeName: ChickenSnakes.EnemyGroup.TransitionController,
+          Assembly-CSharp
+        m_MethodName: StartTransition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onReturn:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &5453694121697882391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6494200111807266182}
+  - component: {fileID: 8730379436296730620}
+  m_Layer: 0
+  m_Name: Dive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6494200111807266182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5453694121697882391}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1002364867295736852}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8730379436296730620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5453694121697882391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 300ad1ab1c325fc45bd69ccb45398e49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChickenSnakes.EnemyGroup.TransitionController
+  _subject: {fileID: 1002364867295736852}
+  _loopTransitions: 0
+  _startOnAwake: 0
+  _transitions:
+    _instances: 1
+    _transitions:
+    - rid: 5106058625025310789
+    - rid: 5106058625025310790
+    - rid: 5106058625025310788
+  _onStartTransition:
+    m_PersistentCalls:
+      m_Calls: []
+  _onEndTransition:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1440723625350142386}
+        m_TargetAssemblyTypeName: ChickenSnakes.EnemyGroup.EnemyPort, Assembly-CSharp
+        m_MethodName: Return
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onStopTransition:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1440723625350142386}
+        m_TargetAssemblyTypeName: ChickenSnakes.EnemyGroup.EnemyPort, Assembly-CSharp
+        m_MethodName: Return
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds:
+    - rid: 5106058625025310788
+      type: {class: TranslateTransition, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _instances: 1
+        _duration: 1
+        _startPosition:
+          rid: 5106058625025310791
+        _endPosition:
+          rid: 5106058625025310795
+    - rid: 5106058625025310789
+      type: {class: TranslateTransition, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _instances: 1
+        _duration: 1
+        _startPosition:
+          rid: 5106058625025310792
+        _endPosition:
+          rid: 5106058625025310793
+    - rid: 5106058625025310790
+      type: {class: IdleTransition, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _instances: 1
+        _duration: 2
+    - rid: 5106058625025310791
+      type: {class: OriginalEndPoint, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _componentFromSubject: 0
+        _offset: {x: 0, y: 0, z: 0}
+    - rid: 5106058625025310792
+      type: {class: OriginalEndPoint, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _componentFromSubject: 0
+        _offset: {x: 0, y: 0, z: 0}
+    - rid: 5106058625025310793
+      type: {class: OriginalEndPoint, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _componentFromSubject: 0
+        _offset: {x: 0, y: -5, z: 0}
+    - rid: 5106058625025310795
+      type: {class: TransformEndPoint, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _componentFromTransform: 0
+        _endTransform: {fileID: 2224648197259892856}
+--- !u!1001 &9016398178776886095
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1002364867295736852}
+    m_Modifications:
+    - target: {fileID: 3535704698611627873, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_Name
+      value: Enemy Dummy Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+--- !u!4 &3493986584424550496 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
+  m_PrefabInstance: {fileID: 9016398178776886095}
+  m_PrefabAsset: {fileID: 0}
