@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -7,17 +6,18 @@ using UnityEngine;
 /// Draws a random entry from a list of entries with weights.
 /// 
 /// Author: William Min
-/// Date: 12/11/25
+/// Date: 12/13/25
 /// </summary>
 /// <typeparam name="T">Type of entry</typeparam>
+/// <typeparam name="Entry">Type of weighted entry for the processor to contain</typeparam>
 [Serializable]
-public class WeightProcesser<T>
+public class WeightProcesser<T, Entry> where Entry : GenericWeightEntry<T>
 {
     #region Serialized Fields
 
 
     [SerializeField] private RandomOrderMode _orderMode;    // Mode of giving out entries
-    [SerializeField] private WeightEntry<T>[] _entries;     // List of entries for processor
+    [SerializeField] private Entry[] _entries;              // List of entries for processor
 
 
     #endregion
@@ -26,7 +26,7 @@ public class WeightProcesser<T>
 
 
     /// <summary>
-    /// 
+    /// Number of entries in processer.
     /// </summary>
     public int EntryCount { get => _entries != null ? _entries.Length : 0; }
 
@@ -36,7 +36,7 @@ public class WeightProcesser<T>
     #region Enums
 
 
-    // 
+    // Mode of selecting objects from entries in the processer
     private enum RandomOrderMode
     {
         Random,
@@ -55,7 +55,7 @@ public class WeightProcesser<T>
     /// </summary>
     public void Reset()
     {
-        foreach (WeightEntry<T> entry in _entries)
+        foreach (Entry entry in _entries)
         {
             entry.ResetEntry();
         }
@@ -81,7 +81,7 @@ public class WeightProcesser<T>
         {
             case RandomOrderMode.Random:
 
-                foreach (WeightEntry<T> entry in _entries)
+                foreach (Entry entry in _entries)
                 {
                     roll -= entry.BaseWeight;
 
@@ -96,7 +96,7 @@ public class WeightProcesser<T>
 
             case RandomOrderMode.Ordered:
                     
-                foreach (WeightEntry<T> entry in _entries)
+                foreach (Entry entry in _entries)
                 {
                     if (entry.Weight > 0)
                     {
@@ -110,7 +110,7 @@ public class WeightProcesser<T>
 
             case RandomOrderMode.RandomUnique:
 
-                foreach (WeightEntry<T> entry in _entries)
+                foreach (Entry entry in _entries)
                 {
                     roll -= entry.Weight;
 
@@ -141,7 +141,7 @@ public class WeightProcesser<T>
     {
         int totalWeight = 0;
 
-        foreach (WeightEntry<T> weight in _entries)
+        foreach (Entry weight in _entries)
         {
             totalWeight += weight.Weight;
         }
@@ -154,20 +154,19 @@ public class WeightProcesser<T>
 }
 
 /// <summary>
-/// Represents an entry and its weight.
+/// Represents a generic entry and its weight.
 /// 
 /// Author: William Min
 /// Date: 12/11/25
 /// </summary>
 /// <typeparam name="T">Type of entry</typeparam>
 [Serializable]
-public class WeightEntry<T>
+public abstract class GenericWeightEntry<T>
 {
     #region Serialized Fields
 
 
-    [SerializeReference, SubclassSelector] private T _object;   // Object to pass when selected
-    [SerializeField] private int _weight = 1;                   // Weight of entry
+    [SerializeField] private int _weight = 1;   // Weight of entry
 
 
     #endregion
@@ -175,7 +174,7 @@ public class WeightEntry<T>
     #region Private Fields
 
 
-    private int _currentWeight = 0; // 
+    private int _currentWeight = 0; // Current weight of entry during runtime
 
 
     #endregion
@@ -184,17 +183,17 @@ public class WeightEntry<T>
 
 
     /// <summary>
-    /// 
+    /// Returns the object in entry.
     /// </summary>
-    public T Object { get => _object; }
+    public abstract T Object { get; }
 
     /// <summary>
-    /// 
+    /// Default weight of entry.
     /// </summary>
     public int BaseWeight { get => _weight; }
 
     /// <summary>
-    /// 
+    /// Current weight of entry.
     /// </summary>
     public int Weight { get => _currentWeight; }
 
@@ -205,7 +204,7 @@ public class WeightEntry<T>
 
 
     /// <summary>
-    /// 
+    /// Shrinks the runtime weight after being selected.
     /// </summary>
     public void ShrinkWeight()
     {
@@ -218,21 +217,66 @@ public class WeightEntry<T>
     }
 
     /// <summary>
-    /// 
+    /// Resets the entry's weight.
     /// </summary>
     public void ResetEntry()
     {
         _currentWeight = _weight;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="tracker"></param>
-    public void AddToTracker(Dictionary<WeightEntry<T>, int> tracker)
-    {
-        tracker.Add(this, _weight);
-    }
+
+    #endregion
+}
+
+/// <summary>
+/// Represents an object as an entry and its weight.
+/// 
+/// Author: William Min
+/// Date: 12/13/25
+/// </summary>
+/// <typeparam name="T">Type of entry</typeparam>
+[Serializable]
+public class WeightEntry<T> : GenericWeightEntry<T>
+{
+    #region Serialized Fields
+
+
+    [SerializeField] private T _object; // Object to pass when selected
+
+
+    #endregion
+
+    #region Generic Weight Entry Callbacks
+
+
+    public override T Object { get => _object; }
+
+
+    #endregion
+}
+
+/// <summary>
+/// Represents a subclass object as an entry and its weight.
+/// 
+/// Author: William Min
+/// Date: 12/13/25
+/// </summary>
+/// <typeparam name="T">Type of entry</typeparam>
+[Serializable]
+public class SubclassWeightEntry<T> : GenericWeightEntry<T>
+{
+    #region Serialized Fields
+
+
+    [SerializeReference, SubclassSelector] private T _object; // Object to pass when selected
+
+
+    #endregion
+
+    #region Generic Weight Entry Callbacks
+
+
+    public override T Object { get => _object; }
 
 
     #endregion
