@@ -26,15 +26,15 @@ namespace ChickenSnakes.Transitions
 
 
         protected int _instance;
-        protected bool _hasEnded;
+        protected bool _hasFinished;
 
 
         #endregion
 
-        #region Properties
+        #region Public Fields
 
 
-        public bool HasEnded { get => _hasEnded; set => _hasEnded = value; }
+        public Action OnFinished;
 
 
         #endregion
@@ -59,17 +59,19 @@ namespace ChickenSnakes.Transitions
         {
             Reset();
 
-            while (!_hasEnded)
+            while (!_hasFinished)
             {
                 _doOnLoop(subject);
                 yield return null;
             }
+
+            OnFinished?.Invoke();
         }
 
         public virtual void Reset()
         {
             _instance = 0;
-            _hasEnded = false;
+            _hasFinished = false;
         }
 
         public abstract void UpdateTransition(Transform subject, float t);
@@ -84,10 +86,10 @@ namespace ChickenSnakes.Transitions
         {
             UpdateTransition(subject, 0);
 
-            if (_hasEnded && _instance < _instances - 1)
+            if (_hasFinished && _instance < _instances - 1)
             {
                 _instance++;
-                _hasEnded = false;
+                _hasFinished = false;
             }
         }
 

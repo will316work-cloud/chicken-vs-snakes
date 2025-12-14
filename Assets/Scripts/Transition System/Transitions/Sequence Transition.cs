@@ -38,7 +38,7 @@ namespace ChickenSnakes.Transitions
         {
             if (_currentTransitionIndex >= _transitions.Length)
             {
-                _hasEnded = true;
+                _hasFinished = true;
                 _currentTransitionIndex = 0;
                 _currentEnumerator = null;
             }
@@ -51,7 +51,7 @@ namespace ChickenSnakes.Transitions
                     _currentEnumerator = currentTransition.Start(subject);
                 }
 
-                if (!_currentEnumerator.MoveNext() || currentTransition.HasEnded)
+                if (!_currentEnumerator.MoveNext())
                 {
                     _currentTransitionIndex++;
                     _currentEnumerator = null;

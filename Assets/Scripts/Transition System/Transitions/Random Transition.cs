@@ -17,8 +17,10 @@ namespace ChickenSnakes.Transitions
         #region Serialized Fields
 
 
-        [SerializeField] private bool _resetEntryWeightsOnStart;
-        [SerializeField] private WeightProcesser<TransitionAnimation> _transitions;
+        [SerializeField] private bool _newWeightsOnReset;               //  
+        [SerializeField] private WeightProcesser<TransitionAnimation, 
+                                                SubclassWeightEntry<TransitionAnimation>> 
+                                                _transitionEntries;     // 
 
 
         #endregion
@@ -26,8 +28,8 @@ namespace ChickenSnakes.Transitions
         #region Private Fields
 
 
-        private TransitionAnimation _currentTransition;
-        private IEnumerator _currentEnumerator;
+        private TransitionAnimation _currentTransition; // 
+        private IEnumerator _currentEnumerator;         // 
 
 
         #endregion
@@ -39,7 +41,7 @@ namespace ChickenSnakes.Transitions
         {
             if (_currentTransition == null)
             {
-                _currentTransition = _transitions.GetNextEntry();
+                _currentTransition = _transitionEntries.GetNextEntry();
             }
 
             if (_currentEnumerator == null)
@@ -47,11 +49,11 @@ namespace ChickenSnakes.Transitions
                 _currentEnumerator = _currentTransition.Start(subject);
             }
 
-            if (!_currentEnumerator.MoveNext() || _currentTransition.HasEnded)
+            if (!_currentEnumerator.MoveNext())
             {
                 _currentTransition = null;
                 _currentEnumerator = null;
-                _hasEnded = true;
+                _hasFinished = true;
             }
         }
 
@@ -62,9 +64,9 @@ namespace ChickenSnakes.Transitions
             _currentTransition = null;
             _currentEnumerator = null;
 
-            if (_resetEntryWeightsOnStart)
+            if (_newWeightsOnReset)
             {
-                _transitions.Reset();
+                _transitionEntries.Reset();
             }
         }
 

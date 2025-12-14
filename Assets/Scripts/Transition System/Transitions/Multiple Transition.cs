@@ -47,13 +47,13 @@ namespace ChickenSnakes.Transitions
             }
             else
             {
-                _hasEnded = true;
+                _hasFinished = true;
 
                 foreach (IEnumerator enumerator in _currentEnumerators)
                 {
                     if (enumerator.MoveNext())
                     {
-                        _hasEnded = false;
+                        _hasFinished = false;
                     }
                 }
             }

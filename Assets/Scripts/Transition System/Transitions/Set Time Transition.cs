@@ -56,7 +56,7 @@ namespace ChickenSnakes.Transitions
                 }
                 else
                 {
-                    _hasEnded = true;
+                    _hasFinished = true;
                 }
             }
         }
