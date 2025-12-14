@@ -13,7 +13,10 @@ namespace ChickenSnakes.EnemyGroup
 
         [SerializeField] private Vector2Int _dimensions;
         [SerializeField] private Vector2 _space;
-        [SerializeField] private EnemyPort _enemyPort;
+
+        [SerializeField] private WeightProcesser<EnemyPort, WeightEntry<EnemyPort>> _oneUnitEnemies;
+        [SerializeField] private WeightProcesser<EnemyPort, WeightEntry<EnemyPort>> _fourUnitEnemies;
+        [SerializeField] private WeightProcesser<EnemyPort, WeightEntry<EnemyPort>> _nineUnitEnemies;
 
 
         #endregion
@@ -34,9 +37,7 @@ namespace ChickenSnakes.EnemyGroup
         {
             foreach (EnemyPort port in _positionsAndEnemies.Values)
             {
-                port.Return();
-
-                ObjectPoolManager.ReturnObjectToPool(port.gameObject);
+                port.DestroyEnemy();
             }
 
             _positionsAndEnemies.Clear();
@@ -59,8 +60,9 @@ namespace ChickenSnakes.EnemyGroup
                 {
                     Vector2Int pos = new Vector2Int(i, j);
 
-                    EnemyPort spawnedObject = ObjectPoolManager.SpawnObject(_enemyPort, Vector3.zero, Quaternion.identity);
+                    EnemyPort spawnedObject = ObjectPoolManager.SpawnObject(_oneUnitEnemies.GetNextEntry(), Vector3.zero, Quaternion.identity);
                     spawnedObject.transform.SetParent(transform);
+                    spawnedObject.gameObject.SetActive(false);
                     _positionsAndEnemies.Add(pos, spawnedObject);
 
                     Vector3 realLocalPosition = (Vector3Int)pos;
