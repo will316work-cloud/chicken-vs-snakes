@@ -3,12 +3,13 @@ using UnityEngine;
 namespace ChickenSnakes.Movement
 {
     /// <summary>
-    /// 
+    /// Manager of entity movement.
     /// 
     /// Author: William Min
     /// Date: 12/13/25
     /// </summary>
-    public class EntityMovement : MonoBehaviour
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class TopDownMovement2D : MonoBehaviour
     {
         #region Serialized Fields
 
@@ -23,6 +24,7 @@ namespace ChickenSnakes.Movement
 
         private Vector3 _currentVelocity;   // 
         private Vector3 _currentTorque;     // 
+        private Rigidbody2D _rigidbody;     //
 
 
         #endregion
@@ -30,17 +32,34 @@ namespace ChickenSnakes.Movement
         #region MonoBehavior Callbacks
 
 
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody2D>();
+        }
+
         private void FixedUpdate()
         {
+            _rigidbody.linearVelocity = Vector3.zero;
+
             if (_currentVelocity.sqrMagnitude > 0.001f)
             {
-                transform.position += _currentVelocity * Time.deltaTime;
+                //transform.Translate(_currentVelocity * Time.deltaTime);
+
+
+                Vector3 newPosition = (Vector3)(_rigidbody.position) + _currentVelocity * Time.fixedDeltaTime;
+
+                _rigidbody.MovePosition(newPosition);
             }
 
             if (_currentTorque.sqrMagnitude > 0.001f)
             {
-                transform.Rotate(_currentTorque * Time.deltaTime);
+                transform.Rotate(_currentTorque * Time.fixedDeltaTime);
             }
+        }
+
+        private void LateUpdate()
+        {
+            //_rigidbody.linearVelocity = Vector3.zero;
         }
 
 

@@ -11,7 +11,7 @@ namespace ChickenSnakes.Inputs
     /// Author: William Min
     /// Date: 12/13/25
     /// </summary>
-    [RequireComponent(typeof(EntityMovement))]
+    [RequireComponent(typeof(TopDownMovement2D))]
     public class PlayerMovementInputs : MonoBehaviour
     {
         #region Serialized Fields
@@ -27,7 +27,7 @@ namespace ChickenSnakes.Inputs
 
 
         private InputAction _movementAction;    // Input Action reference for movement
-        private EntityMovement _controller;     // Reference to entity movement
+        private TopDownMovement2D _controller;     // Reference to entity movement
 
 
         #endregion
@@ -38,7 +38,7 @@ namespace ChickenSnakes.Inputs
         private void Awake()
         {
             _movementAction = _movementInput.action;
-            _controller = GetComponent<EntityMovement>();
+            _controller = GetComponent<TopDownMovement2D>();
         }
 
         private void OnEnable()
