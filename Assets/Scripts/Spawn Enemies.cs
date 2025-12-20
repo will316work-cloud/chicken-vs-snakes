@@ -4,7 +4,7 @@ using UnityEngine;
 
 using Spawners;
 
-namespace ChickenSnakes.EnemyGroup
+namespace ChickenSnakes.Enemy
 {
     public class SpawnEnemies : MonoBehaviour
     {
@@ -37,7 +37,7 @@ namespace ChickenSnakes.EnemyGroup
         {
             foreach (EnemyPort port in _positionsAndEnemies.Values)
             {
-                port.DestroyEnemy();
+                port.Destroy();
             }
 
             _positionsAndEnemies.Clear();

@@ -16,8 +16,11 @@ namespace ChickenSnakes.Transitions
         #region Serialized Fields
 
 
-        [SerializeField] private TransformComponentType _componentFromTransform;
+        [Space]
+        [SerializeField] private TransformComponentType _transformPart;
+        [SerializeField] private Space _relativeTo;
         [SerializeField] private Transform _endTransform;
+        [SerializeField] private Vector3 _offset;
 
 
         #endregion
@@ -27,7 +30,8 @@ namespace ChickenSnakes.Transitions
 
         public override Vector3 GetPoint()
         {
-            return _getComponentFromTransform(_componentFromTransform, _endTransform);
+            //return _getComponentFromTransform(_transformPart, _endTransform);
+            return _getVectorFromTransform(_endTransform, _transformPart, _relativeTo, _offset);
         }
 
         public override void ResetPoint()

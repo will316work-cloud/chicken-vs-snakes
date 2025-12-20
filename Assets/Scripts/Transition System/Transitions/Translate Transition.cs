@@ -16,7 +16,9 @@ namespace ChickenSnakes.Transitions
         #region Serialized Fields
 
 
+        [Space]
         [SerializeReference, SubclassSelector] private TransitionEndPoint _startPosition;
+        [Space]
         [SerializeReference, SubclassSelector] private TransitionEndPoint _endPosition;
 
 

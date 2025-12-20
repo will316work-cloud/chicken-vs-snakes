@@ -17,6 +17,7 @@ namespace ChickenSnakes.Transitions
         #region Serialized Fields
 
 
+        [Space]
         [SerializeField] protected int _instances = 1;
 
 

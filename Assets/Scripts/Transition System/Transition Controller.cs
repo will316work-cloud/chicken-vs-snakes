@@ -2,7 +2,7 @@ using ChickenSnakes.Transitions;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace ChickenSnakes.EnemyGroup
+namespace ChickenSnakes.Enemy
 {
     /// <summary>
     /// 
@@ -19,9 +19,10 @@ namespace ChickenSnakes.EnemyGroup
         [SerializeField] private bool _loopTransitions;             // 
         [SerializeField] private bool _startOnActive;               // 
         [SerializeField] private SequenceTransition _transitions;   // 
-        [Space] public UnityEvent _onStartTransition;               // 
-        [Space] public UnityEvent _onEndTransition;                 // 
-        [Space] public UnityEvent _onStopTransition;                // 
+
+        [Space] public UnityEvent OnStartTransition;                // 
+        [Space] public UnityEvent OnStopTransition;                 // 
+        [Space] public UnityEvent OnEndTransition;                  // 
 
 
         #endregion
@@ -74,8 +75,8 @@ namespace ChickenSnakes.EnemyGroup
         {
             _endTransition();
 
+            OnStartTransition?.Invoke();
             _currentTransition = StartCoroutine(_transitions.Start(_subject));
-            _onStartTransition?.Invoke();
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace ChickenSnakes.EnemyGroup
         public void StopTransition()
         {
             _endTransition();
-            _onStopTransition?.Invoke();
+            OnStopTransition?.Invoke();
         }
 
 
@@ -108,7 +109,7 @@ namespace ChickenSnakes.EnemyGroup
         private void _doOnFinishedTransition()
         {
             _endTransition();
-            _onEndTransition?.Invoke();
+            OnEndTransition?.Invoke();
 
             if (_loopTransitions)
             {

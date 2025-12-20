@@ -16,8 +16,11 @@ namespace ChickenSnakes.Transitions
         #region Serialized Fields
 
 
-        [SerializeField] private TransformComponentType _componentFromSubject;
+        [Space]
+        [SerializeField] private TransformComponentType _transformPart;
+        [SerializeField] private Space _relativeTo;
         [SerializeField] private Vector3 _offset;
+        [Space]
 
 
         #endregion
@@ -49,7 +52,7 @@ namespace ChickenSnakes.Transitions
         {
             if (!_hasRecordedOriginal)
             {
-                _originalPoint = _getComponentFromTransform(_componentFromSubject, subject) + _offset;
+                _originalPoint = _getVectorFromTransform(subject, _transformPart, _relativeTo, _offset);//_getComponentFromTransform(_transformPart, subject) + _offset;
                 _hasRecordedOriginal = true;
             }
         }
