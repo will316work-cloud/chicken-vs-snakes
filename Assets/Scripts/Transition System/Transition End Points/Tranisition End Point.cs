@@ -39,20 +39,28 @@ namespace ChickenSnakes.Transitions
         #region Private Methods
 
 
-        protected Vector3 _getComponentFromTransform(TransformComponentType componentType, Transform transform)
+        protected Vector3 _getVectorFromTransform(Transform transform, TransformComponentType componentType, Space relativeTo, Vector3 offset)
         {
             switch (componentType)
             {
                 case TransformComponentType.POSITION:
-                    return transform.position;
+                    
+                    return relativeTo == Space.World ? 
+                            transform.position + offset : 
+                            transform.TransformPoint(offset);
 
                 case TransformComponentType.ROTATION:
-                    return transform.rotation.eulerAngles;
+                    
+                    return transform.rotation.eulerAngles + offset;
 
                 case TransformComponentType.SCALE:
-                    return transform.localScale;
+                    
+                    return relativeTo == Space.World ?
+                            transform.lossyScale + offset :
+                            transform.localScale + offset;
 
                 default:
+                    
                     return default(Vector3);
             }
         }
