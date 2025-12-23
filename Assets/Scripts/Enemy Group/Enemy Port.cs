@@ -1,7 +1,7 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-using Spawners;
+using ChickenSnakes.Entities;
+using ChickenSnakes.Managers;
 
 namespace ChickenSnakes.Enemy
 {
@@ -19,9 +19,6 @@ namespace ChickenSnakes.Enemy
 
 
         [SerializeField] private GameObject _enemyOnPort;   // 
-        [Space] public UnityEvent OnDeploy;                // 
-        [Space] public UnityEvent OnReturn;                // 
-        [Space] public UnityEvent OnDestroy;               // 
 
 
         #endregion
@@ -29,7 +26,20 @@ namespace ChickenSnakes.Enemy
         #region Private Fields
 
 
-        private bool _isOnPort;   // 
+        private bool _isOnPort = true;              // 
+        private Entity _entityReference;            //
+        private CommandManager _commandCollection;  // 
+
+
+        #endregion
+
+        #region MonoBehavior Callbacks
+
+
+        private void Awake()
+        {
+            Setup();
+        }
 
 
         #endregion
@@ -38,17 +48,38 @@ namespace ChickenSnakes.Enemy
 
 
         /// <summary>
+        /// Sets up entity.
+        /// </summary>
+        public void Setup()
+        {
+            ChangeEnemyOnPort(_enemyOnPort);
+        }
+
+        /// <summary>
         /// Changes the enemy on the port.
         /// </summary>
         /// <param name="newEnemy">The new enemy for the port</param>
         public void ChangeEnemyOnPort(GameObject newEnemy)
         {
-            _enemyOnPort.transform.SetParent(null);
+            if (_enemyOnPort != null)
+            {
+                _enemyOnPort.transform.SetParent(null);
+            }
+
+            _entityReference = null;
+            _commandCollection = null;
+
             _enemyOnPort = newEnemy;
-            _enemyOnPort.transform.SetParent(transform);
+
+            if (_enemyOnPort != null)
+            {
+                _enemyOnPort.transform.SetParent(transform);
+                _entityReference = _enemyOnPort.GetComponentInChildren<Entity>();
+                _commandCollection = GetComponentInChildren<CommandManager>();
+            }
         }
 
-        //[ContextMenu("Deploy")]
+        [ContextMenu("Deploy")]
         /// <summary>
         /// Deploys the enemy from the port.
         /// </summary>
@@ -59,45 +90,15 @@ namespace ChickenSnakes.Enemy
                 return;
             }
 
-            DeployRaw();
-
-            OnDeploy?.Invoke();
-        }
-
-        /// <summary>
-        /// Deploys the enemy from the port without any event callbacks.
-        /// </summary>
-        public void DeployRaw()
-        {
-            if (!_isOnPort)
-            {
-                return;
-            }
-
             _enemyOnPort.transform.SetParent(null);
             _isOnPort = false;
         }
 
-        //[ContextMenu("Return")]
+        [ContextMenu("Return")]
         /// <summary>
         /// Returns the enemy to the port.
         /// </summary>
         public void Return()
-        {
-            if (_isOnPort)
-            {
-                return;
-            }
-
-            ReturnRaw();
-
-            OnReturn?.Invoke();
-        }
-
-        /// <summary>
-        /// Returns the enemy to the port without any event callbacks.
-        /// </summary>
-        public void ReturnRaw()
         {
             if (_isOnPort)
             {
@@ -113,14 +114,21 @@ namespace ChickenSnakes.Enemy
         }
 
         /// <summary>
-        /// Destroys the enemy and the port.
+        /// Returns the entity component from the enemy in the port.
         /// </summary>
-        public void Destroy()
+        /// <returns>Entity component from the enemy in the port</returns>
+        public Entity GetEntityOnPort()
         {
-            Return();
-            ObjectPoolManager.ReturnObjectToPool(gameObject);
+            return _entityReference;
+        }
 
-            OnDestroy?.Invoke();
+        /// <summary>
+        /// Returns the commmand manager component from the enemy in the port.
+        /// </summary>
+        /// <returns>Command Manager from the enemy in the port</returns>
+        public CommandManager GetCommandsOnPort()
+        {
+            return _commandCollection;
         }
 
 

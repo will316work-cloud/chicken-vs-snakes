@@ -17,15 +17,15 @@ namespace ChickenSnakes.Enemy
 
         [SerializeField] private EnemyGroupData[] _enemyGroups;
         [SerializeField] private float _timeBetweenCycles = 1f;
-        [SerializeField] private Vector2Int _deployDimensions;
-        [SerializeField] private bool _willDeploy;
+        [SerializeField] private Vector2Int _commandDimensions;
+        [SerializeField] private bool _willCommand;
 
 
         #endregion
 
         private void Start()
         {
-            ToggleDeployCycle(_willDeploy);
+            ToggleCommandCycle(_willCommand);
         }
 
 
@@ -52,7 +52,7 @@ namespace ChickenSnakes.Enemy
             }
         }
 
-        public void DeployOnCornerPositions(int groupIndex, Vector2Int bottomLeftCorner, Vector2Int topRightCorner)
+        public void CommandOnCornerPositions(int groupIndex, Vector2Int bottomLeftCorner, Vector2Int topRightCorner)
         {
             EnemyGroupData enemyGroup = _enemyGroups[groupIndex];
 
@@ -66,56 +66,60 @@ namespace ChickenSnakes.Enemy
 
                     if (unitData != null)
                     {
-                        unitData.GetEnemyUnit().Deploy();
-                        //Debug.Log("Deployed");
+                        if (unitData.GetEnemyUnit().GetCommandsOnPort() == null)
+                        {
+                            unitData.GetEnemyUnit().Setup();
+                        }
+
+                        unitData.GetEnemyUnit().GetCommandsOnPort().DoNextCommand();
                     }
                 }
             }
         }
 
-        public void DeployOnRectangle(int groupIndex, Vector2Int bottomLeftCorner, Vector2Int dimensions)
+        public void CommandOnRectangle(int groupIndex, Vector2Int bottomLeftCorner, Vector2Int dimensions)
         {
-            DeployOnCornerPositions(groupIndex, bottomLeftCorner, new Vector2Int(bottomLeftCorner.x + dimensions.x - 1, bottomLeftCorner.y + dimensions.y - 1));
+            CommandOnCornerPositions(groupIndex, bottomLeftCorner, new Vector2Int(bottomLeftCorner.x + dimensions.x - 1, bottomLeftCorner.y + dimensions.y - 1));
         }
 
-        public void ToggleDeployCycle(bool willDeploy)
+        public void ToggleCommandCycle(bool willCommand)
         {
-            _willDeploy = willDeploy;
+            _willCommand = willCommand;
 
-            if (_willDeploy)
+            if (_willCommand)
             {
-                StartCoroutine(_deployCycles());
+                StartCoroutine(_commandCycles());
             }
         }
 
         [ContextMenu("Toggle Cycle On")]
-        public void ToggleDeployCycleOn()
+        public void ToggleCycleOn()
         {
-            ToggleDeployCycle(true);
+            ToggleCommandCycle(true);
         }
 
         [ContextMenu("Toggle Cycle Off")]
-        public void ToggleDeployCycleOff()
+        public void ToggleCycleOff()
         {
-            ToggleDeployCycle(false);
+            ToggleCommandCycle(false);
         }
 
 
-        private IEnumerator _deployCycles()
+        private IEnumerator _commandCycles()
         {
-            while (_willDeploy)
+            while (_willCommand)
             {
                 int groupIndex = Random.Range(0, 4);
                 EnemyGroupData enemyGroup = _enemyGroups[groupIndex];
                 (Vector2Int, Vector2Int) bounds = enemyGroup.GetBounds();
 
-                int randomX = Random.Range(bounds.Item1.x, bounds.Item2.x - _deployDimensions.x + 2);
-                int randomY = Random.Range(bounds.Item1.y, bounds.Item2.y - _deployDimensions.y + 2);
+                int randomX = Random.Range(bounds.Item1.x, bounds.Item2.x - _commandDimensions.x + 2);
+                int randomY = Random.Range(bounds.Item1.y, bounds.Item2.y - _commandDimensions.y + 2);
                 Vector2Int bottomLeftCorner = new Vector2Int(randomX, randomY);
 
                 //Debug.Log($"{bottomLeftCorner} | {_deployDimensions}");
 
-                DeployOnRectangle(groupIndex, bottomLeftCorner, _deployDimensions);
+                CommandOnRectangle(groupIndex, bottomLeftCorner, _commandDimensions);
 
                 yield return new WaitForSeconds(_timeBetweenCycles);
             }
