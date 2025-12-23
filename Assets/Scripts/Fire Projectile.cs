@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using ChickenSnakes.Entities;
+
 namespace Spawners
 {
     /// <summary>
@@ -13,22 +15,30 @@ namespace Spawners
     {
         [SerializeField] private GameObject _projectilePrefab;
 
-        public GameObject SummonProjectile(Vector3 position, Quaternion rotation, Vector3 scale, GameObject owner = null)
+        public GameObject SummonProjectile(Vector3 position, Quaternion rotation, Vector3 scale, GameObject owner = null, int teamIndex = 0)
         {
             GameObject projectile = ObjectPoolManager.SpawnObject(_projectilePrefab, position, rotation);
             projectile.transform.localScale = scale;
 
+            Entity projectileEntity = projectile.GetComponentInChildren<Entity>();
+
+            if (projectileEntity != null)
+            {
+                projectileEntity.Owner = owner;
+                projectileEntity.TeamIndex = teamIndex;
+            }
+
             return projectile;
         }
 
-        public GameObject SummonProjectile(Vector3 position, Vector3 eulerAngles, Vector3 scale, GameObject owner = null)
+        public GameObject SummonProjectile(Vector3 position, Vector3 eulerAngles, Vector3 scale, GameObject owner = null, int teamIndex = 0)
         {
-            return SummonProjectile(position, Quaternion.Euler(eulerAngles), scale, owner);
+            return SummonProjectile(position, Quaternion.Euler(eulerAngles), scale, owner, teamIndex);
         }
 
-        public GameObject SummonProjectile(Transform origin, GameObject owner = null)
+        public GameObject SummonProjectile(Transform origin, GameObject owner = null, int teamIndex = 0)
         {
-            return SummonProjectile(origin.position, origin.rotation, _projectilePrefab.transform.localScale, owner);
+            return SummonProjectile(origin.position, origin.rotation, _projectilePrefab.transform.localScale, owner, teamIndex);
         }
     }
 }

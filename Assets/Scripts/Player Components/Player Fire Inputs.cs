@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 using Spawners;
+using ChickenSnakes.Entities;
 
 namespace ChickenSnakes.Inputs
 {
@@ -19,7 +20,7 @@ namespace ChickenSnakes.Inputs
         [Header("Player Control References")]
         [SerializeField] private InputActionReference _fireInput;   // Reference to input for moving
         [SerializeField] private FireProjectile _projectile;        // Projectile reference
-        [SerializeField] private GameObject _owner;                 // Object that will be the fired projectiles' owner
+        [SerializeField] private Entity _projectileShooter;         // Entity that will fire the projectile
         [SerializeField] private Transform _originOfProjectile;     // Transform reference that contains spawn position and rotation of projectile
 
 
@@ -65,7 +66,7 @@ namespace ChickenSnakes.Inputs
 
         private void _onFirePerformed(InputAction.CallbackContext context)
         {
-            _projectile.SummonProjectile(_originOfProjectile, _owner);
+            _projectile.SummonProjectile(_originOfProjectile, _projectileShooter.gameObject, _projectileShooter.TeamIndex);//_owner);
         }
 
 
