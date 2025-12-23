@@ -9,7 +9,7 @@ namespace Colliding
     /// Author: William Min
     /// Date: 11/14/25
     /// </summary>
-    public class ActOnIntersect : MonoBehaviour
+    public abstract class ActOnIntersect : MonoBehaviour
     {
         #region Serialized Fields
 
@@ -20,12 +20,13 @@ namespace Colliding
         [SerializeField] private bool _willRespondToEnter = true;   // True if the interactable will act on entering the area
         [SerializeField] private bool _willRespondToStay = true;    // True if the interactable will act on staying in the area
         [SerializeField] private bool _willRespondToExit = true;    // True if the interactable will act on exiting the area
-        [Space]
-        [SerializeField] private bool _willInteractWithOwner;   // True if the interactable can detect and interact with owner
 
         [Space]
-        [Header("Act On Intersect References")]
-        [SerializeField] private GameObject _owner; // GameObject reference to the owner
+        [Header("Act On Intersect Ownership")]
+        [SerializeField] private GameObject _owner;             // GameObject reference to the owner
+        [SerializeField] private bool _willInteractWithOwner;   // True if the interactable can detect and interact with owner
+        [SerializeField] private int _teamIndex;                // Index of team
+        [SerializeField] private bool _willInteractWithTeam;    // True if the interactable can detect and interact with owner
 
         [Header("Act On Intersect Events")]
         [Space]
@@ -98,6 +99,15 @@ namespace Colliding
         }
 
         /// <summary>
+        /// Changes the team of the Intersectable based on index.
+        /// </summary>
+        /// <param name="newTeamIndex">New team index</param>
+        public void ChangeTeam(int newTeamIndex)
+        {
+            _teamIndex = newTeamIndex;
+        }
+
+        /// <summary>
         /// Toggles whether the enter events will occur or not.
         /// </summary>
         /// <param name="willActivate"></param>
@@ -147,9 +157,13 @@ namespace Colliding
 
         protected void _activateEvents(GameObject collidedObject, bool eventToggle, UnityEvent<GameObject> ownerEvent, UnityEvent<GameObject> colliderEvent)
         {
-            if (isActiveAndEnabled && eventToggle && 
-                (_willInteractWithOwner || 
-                collidedObject != _owner && (!collidedObject.TryGetComponent(out ActOnIntersect intersect) || intersect._owner != _owner)))
+            ActOnIntersect otherIntersect = collidedObject.GetComponent<ActOnIntersect>();
+
+            bool isActive = isActiveAndEnabled && eventToggle;
+            bool ownerCheck = _willInteractWithOwner || collidedObject != _owner && (otherIntersect == null || otherIntersect._owner != _owner);
+            bool teamCheck = _willInteractWithTeam || otherIntersect == null || otherIntersect._teamIndex != _teamIndex;
+
+            if (isActive && ownerCheck && teamCheck)
             {
                 ownerEvent?.Invoke(_owner);
                 colliderEvent?.Invoke(collidedObject);
