@@ -130,6 +130,16 @@ public class WeightProcesser<T, Entry> where Entry : GenericWeightEntry<T>
         }
     }
 
+    /// <summary>
+    /// Returns the processer entry on the index.
+    /// </summary>
+    /// <param name="index">Index of processer</param>
+    /// <returns>Entry on index</returns>
+    public Entry GetEntryInfo(int index)
+    {
+        return _entries[index];
+    }
+
 
     #endregion
 
@@ -241,6 +251,7 @@ public class WeightEntry<T> : GenericWeightEntry<T>
     #region Serialized Fields
 
 
+    [Space]
     [SerializeField] private T _object; // Object to pass when selected
 
 
@@ -268,6 +279,7 @@ public class SubclassWeightEntry<T> : GenericWeightEntry<T>
     #region Serialized Fields
 
 
+    [Space]
     [SerializeReference, SubclassSelector] private T _object; // Object to pass when selected
 
 
