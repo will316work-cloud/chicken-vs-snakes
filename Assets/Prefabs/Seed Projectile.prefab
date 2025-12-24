@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6951962853843337359}
   - component: {fileID: 1068732995028111018}
   - component: {fileID: 2516668027664682284}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Seed Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -20,6 +20,8 @@ namespace ChickenSnakes.Transitions
         [SerializeReference, SubclassSelector] private TransitionEndPoint _startPosition;
         [Space]
         [SerializeReference, SubclassSelector] private TransitionEndPoint _endPosition;
+        [Space]
+        [SerializeField] private TimeModifier _modifier;
 
 
         #endregion
@@ -32,7 +34,10 @@ namespace ChickenSnakes.Transitions
             _startPosition.UpdatePoint(subject);
             _endPosition.UpdatePoint(subject);
 
-            subject.position = Vector3.Lerp(_startPosition.GetPoint(), _endPosition.GetPoint(), t);
+            Vector3 startPoint = _startPosition.GetPoint();
+            Vector3 endPoint = _endPosition.GetPoint();
+
+            subject.position = _modifier.GetWorldInbetweenVector(subject, startPoint, endPoint, t);
         }
 
         public override void Reset()

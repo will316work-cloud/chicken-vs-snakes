@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 
 using UnityEngine;
 
@@ -17,9 +16,14 @@ namespace ChickenSnakes.Transitions
         #region Serialized Fields
 
 
+        [Space]
         [SerializeReference, SubclassSelector] private TransitionEndPoint _startScale;
+        [Space]
         [SerializeReference, SubclassSelector] private TransitionEndPoint _endScale;
+        [Space]
         [SerializeField] private bool _preserveChildrenScales;
+        [Space]
+        [SerializeField] private TimeModifier _modifier;
 
 
         #endregion
@@ -32,9 +36,10 @@ namespace ChickenSnakes.Transitions
             _startScale.UpdatePoint(subject);
             _endScale.UpdatePoint(subject);
 
-            Vector3 scale = Vector3.Lerp(_startScale.GetPoint(), _endScale.GetPoint(), t);
+            Vector3 startSize = _startScale.GetPoint();
+            Vector3 endSize = _endScale.GetPoint();
 
-            subject.localScale = scale;
+            subject.localScale = _modifier.GetWorldInbetweenVector(subject, startSize, endSize, t);
 
             for (int i = 0; i < subject.childCount; i++)
             {
