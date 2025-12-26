@@ -182,6 +182,7 @@ MonoBehaviour:
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
+        _turnAlongPath: 0
     - rid: 5106058645931557130
       type: {class: ConstantEndPoint, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
       data:
@@ -205,7 +206,7 @@ GameObject:
   - component: {fileID: 2987425935537765809}
   - component: {fileID: 9218908385885126590}
   m_Layer: 0
-  m_Name: Enemy Dummy
+  m_Name: Enemy Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,10 +225,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3493986584424550496}
+  - {fileID: 8073808924096645963}
   - {fileID: 6494200111807266182}
   - {fileID: 4307040342712576597}
-  - {fileID: 1891797218970153452}
   m_Father: {fileID: 2224648197259892856}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2987425935537765809
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 1440723625350142386}
   - component: {fileID: 718095591226587114}
   m_Layer: 0
-  m_Name: Enemy Dummy Origin
+  m_Name: Enemy Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -487,6 +487,7 @@ MonoBehaviour:
   _transitions:
     _instances: 1
     _transitions:
+    - rid: 5106058893966180423
     - rid: 5106058625025310789
     - rid: 5106058625025310790
     - rid: 5106058625025310788
@@ -621,6 +622,7 @@ MonoBehaviour:
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
+        _turnAlongPath: 1
     - rid: 5106058625025310789
       type: {class: TranslateTransition, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
       data:
@@ -629,7 +631,7 @@ MonoBehaviour:
         _startPosition:
           rid: 5106058625025310792
         _endPosition:
-          rid: 5106058625025310793
+          rid: 5106058893966180426
         _modifier:
           _modifierSpace: 1
           _modifierX:
@@ -704,6 +706,7 @@ MonoBehaviour:
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
+        _turnAlongPath: 1
     - rid: 5106058625025310790
       type: {class: IdleTransition, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
       data:
@@ -721,12 +724,6 @@ MonoBehaviour:
         _transformPart: 0
         _relativeTo: 1
         _offset: {x: 0, y: 0, z: 0}
-    - rid: 5106058625025310793
-      type: {class: OriginalEndPoint, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
-      data:
-        _transformPart: 0
-        _relativeTo: 1
-        _offset: {x: 5, y: 0, z: 0}
     - rid: 5106058625025310795
       type: {class: TransformEndPoint, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
       data:
@@ -734,13 +731,163 @@ MonoBehaviour:
         _relativeTo: 0
         _endTransform: {fileID: 2224648197259892856}
         _offset: {x: 0, y: 0, z: 0}
+    - rid: 5106058893966180423
+      type: {class: TranslateTransition, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _instances: 1
+        _duration: 1
+        _startPosition:
+          rid: 5106058893966180424
+        _endPosition:
+          rid: 5106058893966180425
+        _modifier:
+          _modifierSpace: 1
+          _modifierX:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 1
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 1
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          _modifierY:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          _modifierZ:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 1
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 1
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _turnAlongPath: 0
+    - rid: 5106058893966180424
+      type: {class: OriginalEndPoint, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _transformPart: 0
+        _relativeTo: 1
+        _offset: {x: 0, y: 0, z: 0}
+    - rid: 5106058893966180425
+      type: {class: OriginalEndPoint, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _transformPart: 0
+        _relativeTo: 1
+        _offset: {x: 0, y: 1, z: 0}
+    - rid: 5106058893966180426
+      type: {class: TransformEndPoint, ns: ChickenSnakes.Transitions, asm: Assembly-CSharp}
+      data:
+        _transformPart: 0
+        _relativeTo: 1
+        _endTransform: {fileID: 2224648197259892856}
+        _offset: {x: 5, y: 0, z: 0}
+--- !u!1 &7355585403763045394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8073808924096645963}
+  - component: {fileID: 8971350425021874112}
+  m_Layer: 0
+  m_Name: Body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8073808924096645963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7355585403763045394}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1891797218970153452}
+  - {fileID: 3493986584424550496}
+  m_Father: {fileID: 1002364867295736852}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8971350425021874112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7355585403763045394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af73018c3eb522344b816e2d4254099e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChickenSnakes.Entities.BodyTransform
+  _bodyRoot: {fileID: 0}
 --- !u!1001 &2592565307549331843
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1002364867295736852}
+    m_TransformParent: {fileID: 8073808924096645963}
     m_Modifications:
     - target: {fileID: 4160103284452032623, guid: c7969e08fe2606043927328920cbaec5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -760,15 +907,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4160103284452032623, guid: c7969e08fe2606043927328920cbaec5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4160103284452032623, guid: c7969e08fe2606043927328920cbaec5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4160103284452032623, guid: c7969e08fe2606043927328920cbaec5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4160103284452032623, guid: c7969e08fe2606043927328920cbaec5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -807,7 +954,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1002364867295736852}
+    m_TransformParent: {fileID: 8073808924096645963}
     m_Modifications:
     - target: {fileID: 3535704698611627873, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
       propertyPath: m_Name
@@ -831,15 +978,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5574765940842871599, guid: d365c4a91bd7ea048b7a62fcf45af3ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
